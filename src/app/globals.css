@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * DESIGN TOKENS
+ * Semua warna didefinisikan di sini sekali saja, lalu dipakai lewat class Tailwind:
+ *   bg-canvas, bg-surface, text-ink, text-ink-muted, border-line, bg-brand, bg-tag, dll.
+ * Untuk ganti tema toko, cukup ubah nilai di bawah ini.
+ */
+@theme {
+  --color-canvas: #ffffff; /* latar halaman */
+  --color-surface: #f3f5f8; /* latar blok sekunder */
+  --color-line: #e3e7ee; /* garis & border */
+  --color-ink: #14213d; /* teks utama & tombol utama */
+  --color-ink-muted: #5b6478; /* teks sekunder */
+  --color-on-ink: #ffffff; /* teks di atas warna ink */
+  --color-brand: #2b59c3; /* link & fokus */
+  --color-tag: #ffc93c; /* kuning label paket: harga, badge penting */
+  --color-on-tag: #14213d;
+  --color-success: #1f8a5b;
+  --color-warning: #b7791f;
+  --color-danger: #c53030;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Font sistem: tidak perlu download font apa pun -> halaman lebih ringan */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --radius-control: 0.625rem; /* tombol & input */
+  --radius-panel: 1rem; /* kartu & panel */
+
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+  @keyframes shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Mode gelap otomatis mengikuti setting HP/laptop pengguna */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #0e1424;
+    --color-surface: #172036;
+    --color-line: #26314a;
+    --color-ink: #e8ecf5;
+    --color-ink-muted: #9aa4ba;
+    --color-on-ink: #0e1424;
+    --color-brand: #7fa2ff;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  /* Fokus keyboard yang jelas — penting untuk aksesibilitas */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
