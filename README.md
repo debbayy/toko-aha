@@ -118,3 +118,4 @@ Test diletakkan di samping file yang dites, berakhiran `.test.ts` atau `.test.ts
 4. Build dengan `npm run build`.
 
 Ide pengembangan berikutnya: payment gateway (Midtrans/Xendit), upload gambar ke object storage, rate limit untuk login, dan pilihan kurir dengan ongkir dinamis.
+# toko-aha
